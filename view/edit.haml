@@ -1,19 +1,19 @@
 %h1
-  = "[[Edit]] #{@title.dump}"
+  = l('Edit', @title.dump)
 
-%form{:action => r(:save), :method => :POST}
+%form{:action => r(:save), :method => :post}
   %input{:type => :hidden, :name => :name, :value => @name}
   %fieldset
-    %legend [[Edit]]
-    %label{:for => :form_text} [[Text]]:
+    %legend= l 'Edit'
+    %label{:for => :form_text}= l('Text') + ':'
     %textarea{:name => :text, :id => :form_text}~ @text
-    %label{:for => :form_comment} [[Comment]]:
-    %input{:type => :text, :name => :comment, :value => "Update #{@name}", :id => :form_comment}
-    %input{:type => :submit, :class => :submit, :value => 'Save'}
+    %label{:for => :form_comment}= l('Comment') + ':'
+    %input{:type => :text, :name => :comment, :value => l('Update', @name), :id => :form_comment}
+    %input{:type => :submit, :class => :submit, :value => l('Save')}
 
-%form{:action => r(:move, @name), :method => :POST}
+%form{:action => r(:move, @name), :method => :post}
   %fieldset
-    %legend [[Move]]
-    %label{:for => :form_move} [[Move to different page]]:
+    %legend= l('Move')
+    %label{:for => :form_move}= l('Move to different page') + ':'
     %input{:type => :input, :name => :move, :id => :form_move, :value => @name}
-    %input{:type => :submit, :class => :submit, :value => 'Move'}
+    %input{:type => :submit, :class => :submit, :value => l('Move')}

@@ -1,23 +1,23 @@
 .mod
-  %b [[Control]]:
+  %b= l('Control') + ':'
   - if @page and @page.exists?
-    %a{:href => r(:edit, @name)} [[Edit]]
-    %a{:href => r(:delete, @name)} [[Delete]]
-    %a{:href => r(:history, @name)} [[History]]
+    %a{:href => r(:edit,    @name)}= l('Edit')
+    %a{:href => r(:delete,  @name)}= l('Delete')
+    %a{:href => r(:history, @name)}= l('History')
   - elsif @name
-    %a{:href => r(:edit, @name)} [[Create]]
+    %a{:href => r(:edit, @name)}= l('Create')
 
 %h1
-  [[History of]]
-  %a{:href => r(@name)}= h @name
+  = l('History of')
+  %a{:href => r(@name)}= h(@name)
 
 .history
   %table
     %tr
-      %td [[Message]]
-      %td [[Author]]
-      %td [[Date]]
-      %td [[Action]]
+      %td= l('Message')
+      %td= l('Author')
+      %td= l('Date')
+      %td= l('Action')
     - @history.each_with_index do |log, idx|
       - current = idx == 0
       - style = current ? 'current' : 'old'
@@ -27,5 +27,5 @@
         %td= h log.date
         %td
           - unless current
-            %a{:href => r(:diff, log.objectish, @name)} Diff
-          %a{:href => r(:show, log.objectish, @name)} Show
+            %a{:href => r(:diff, log.objectish, @name)}= l('Diff')
+          %a{:href => r(:show, log.objectish, @name)}= l('Show')

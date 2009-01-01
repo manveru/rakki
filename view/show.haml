@@ -1,13 +1,13 @@
 .mod
-  %b [[Control]]:
+  %b= l('Control') + ':'
   - if @page and @page.exists?
-    %a{:href => r(:edit, @name)} [[Edit]]
-    %a{:href => r(:delete, @name)} [[Delete]]
-    %a{:href => r(:history, @name)} [[History]]
+    %a{:href => r(:edit, @name)}= l('Edit')
+    %a{:href => r(:delete, @name)}= l('Delete')
+    %a{:href => r(:history, @name)}= l('History')
   - elsif @name
-    %a{:href => r(:edit, @name)} [[Create]]
+    %a{:href => r(:edit, @name)}= l('Create')
 
 .toc
-  %b [[Table of Contents]]
+  %b= l('Table of Contents')
   ~ @toc
 .text~ @html

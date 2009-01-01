@@ -1,11 +1,11 @@
 %h1
-  [[Diff]]
+  l("Diff")
   %a{:href => r(:show, @sha, @name)}= h(@sha)
-  [[to]]
+  l("to")
   %a{:href => r(@name)}= h(@name)
 
 .uv_select
-  %b [[Select your style]]
+  %b l("Select your style")
   - current = session[:uv_style]
   - @styles.each do |style|
     %br/
