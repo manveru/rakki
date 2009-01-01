@@ -6,10 +6,7 @@ require 'builder'
 
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
-require 'vendor/org/lib/org'
-require 'org/scope/org_mode'
-require 'org/to/html'
-require 'org/to/toc'
+require 'org'
 require 'vendor/rack/localize'
 require 'vendor/feed_convert'
 
@@ -22,7 +19,7 @@ Innate.middleware :innate do |m|
   m.use Rack::Reloader       # reasonably fast depending on settings
   m.use Rack::Lint           # slow, use only while developing
   # m.use Rack::Profile      # slow, use only for debugging or tuning
-  m.use Rack::Localize.from('pages')
+  m.use Rack::Localize.new(:languages => %w[en de jp], :files => 'locale/*.yaml')
   m.use Innate::Current      # necessary
 
   m.cascade Rack::File.new('public'), Innate::DynaMap

@@ -2,7 +2,7 @@ require 'logger'
 require 'vendor/git_extension'
 
 class Page
-  C = Options.for(:wiki)
+  C = Innate::Options.for(:wiki)
   GBLOB_CACHE = {}
   LOG_CACHE = {}
   EXT = '.org'

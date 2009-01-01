@@ -1,15 +1,15 @@
 module Rack
   class Localize
-    DEFAULT = {
-      :mapping => { /^en-/ => 'en', 'ja' => 'jp' },
-      :files => '/home/manveru/tmp/conf/locale_*.yaml',
-      :regex => /\[\[([^\]]+)\]\]/,
+    OPTIONS = {
+      :mapping          => { /^en-/ => 'en', 'ja' => 'jp' },
+      :files            => '/locale/*.yaml',
+      :regex            => /\(\(([^\)]+)\)\)/,
       :default_language => 'en',
-      :languages => %w[en],
-      :persist => true,
+      :languages        => %w[en],
+      :persist          => true,
     }
 
-    # +:file+
+    # +:files+
     # +:default_language+
     # +:languages+
     # +:regex+
@@ -17,7 +17,7 @@ module Rack
     # +:persist+
 
     def initialize(options = {})
-      @options = DEFAULT.merge(options)
+      @options = OPTIONS.merge(options)
     end
 
     def new(app)
@@ -73,9 +73,13 @@ module Rack
 
     def localize(string, into)
       into.each do |lang|
-        found = @dictionary[lang][string]
-        return found
+        dict = @dictionary[lang]
+        found = dict[string] if dict
+        return found if found
       end
+
+      pp string => into
+      return string
     end
 
     def load_dictionaries
@@ -148,11 +152,13 @@ module Rack
   end
 end
 
+__END__
+
 app = lambda{|env|
   r = Rack::Response.new
   r.write '[[hello]] manveru, [[how are you?]]'
   r.status = 200
-  r.header['Content-Language'] = 'de' # uncomment that to enable real negotiation
+#   r.header['Content-Language'] = 'de' # uncomment that to enable real negotiation
   r.header['Content-Type'] = 'text/plain'
   r.finish
 }

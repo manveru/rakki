@@ -1,4 +1,4 @@
-Options.for(:wiki){|wiki|
+Innate::Options.for(:wiki){|wiki|
   wiki.title = 'Ramaze Wiki'
   wiki.root = File.dirname(__FILE__)
   wiki.repo = File.expand_path(ENV['WIKI_HOME'] || File.join(wiki.root, 'pages'))
