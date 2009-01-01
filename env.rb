@@ -107,7 +107,7 @@ module Org
   <param name=play value={play}>
   <param name=loop value={loop}>
   <param name=quality value={quality}>
-  <embed src="{movie}" width={width} height={height} quality={quality} loop={loop} type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+  <embed src={movie} width={width} height={height} quality={quality} loop={loop} type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
   </embed>
 </object>
 SWF_TEMPLATE
