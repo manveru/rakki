@@ -105,7 +105,7 @@ class Page
     @name = to
   rescue Git::GitExecuteError => ex
     puts "move(%p, %p)" % [to, comment]
-    p ex
+    p :move => ex
     nil
   end
 

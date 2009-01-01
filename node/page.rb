@@ -59,7 +59,7 @@ class PageNode
 
   def diff(sha, *file)
     @sha, @name = sha, file.join('/')
-    style = session[:uv_style] = request[:uv_style] || session[:uv_style] || 'active_4d'
+    style = session[:uv_style] = request[:uv_style] || session[:uv_style] || 'dawn'
     @styles = Uv.themes
     @text = Page.new(@name).diff(sha, style)
   end
@@ -76,7 +76,8 @@ class PageNode
   end
 
   def random
-    redirect(r(:/, Page.list.sort_by{ rand }.first))
+    pick = Page.list(locale).sort_by{ rand }.first
+    redirect(r(:/, pick))
   end
 
   def language(name)
