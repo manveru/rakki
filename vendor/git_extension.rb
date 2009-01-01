@@ -16,6 +16,13 @@ module Git
 
       command_lines('log', arr, true).map { |l| l.split.first }
     end
+
+    def commit(message, opts = {})
+      arr_opts = ["-m '#{message}'"]
+      arr_opts << '-a' if opts[:add_all]
+      arr_opts += (opts[:files] || opts[:files]).map{|f| f.to_s.dump }
+      command('commit', arr_opts)
+    end
   end
 
   class Lib

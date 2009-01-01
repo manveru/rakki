@@ -84,8 +84,7 @@ class Page
     File.open(file, 'w+'){|i|
       i.puts content.gsub(/\r\n|\r/, "\n")
     }
-    G.add(repo_file)
-    message = G.commit(comment)
+    message = G.commit(comment, :files => [repo_file])
     @revision = message[/Created commit (\w+):/, 1]
   rescue Git::GitExecuteError => ex
     puts ex
