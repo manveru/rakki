@@ -10,7 +10,7 @@ class Page
   attr_accessor :language
 
   begin
-    G = Git.open(C.repo, :log => Innate::Log)
+    G = Git.open(C.repo) #, :log => Innate::Log)
   rescue ArgumentError
     FileUtils.mkdir_p(C.repo)
     Dir.chdir(C.repo){ Git.init('.') }
