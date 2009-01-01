@@ -7,6 +7,8 @@ class Page
   LOG_CACHE = {}
   EXT = '.org'
 
+  attr_accessor :language
+
   begin
     G = Git.open(C.repo, :log => Innate::Log)
   rescue ArgumentError
@@ -49,10 +51,11 @@ class Page
     G.gblob("#{sha}:#{file}").contents
   end
 
-  def initialize(name, revision = nil)
+  def initialize(name, language = self.class.language, revision = nil)
     @name = name
-    @org = nil
+    @language = language
     @revision = revision || revisions.first
+    @org = nil
   end
 
   def read(rev = @revision)
@@ -133,11 +136,7 @@ class Page
   end
 
   def repo_file(name = @name)
-    File.join *"#{language}/#{name}#{EXT}".split('/')
-  end
-
-  def language
-    self.class.language
+    File.join(*"#{language}/#{name}#{EXT}".split('/'))
   end
 
   def content

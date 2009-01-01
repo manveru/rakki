@@ -31,15 +31,16 @@ module Org
           link_external(link, desc || link)
         end
       else
-        link_internal(link, desc || link)
+        lang = Innate::Current::session[:language]
+        link_internal(link, lang, desc || link)
       end
     end
 
     LINKS = {} unless defined?(LINKS)
 
-    def link_internal(link, desc)
+    def link_internal(link, lang, desc)
       this = Innate::Current::action.params.join('/')
-      exists = Page.new(link.split('#').first, :speedup).exists?
+      exists = Page.new(link.split('#').first, lang, :speedup).exists?
       style = "#{exists ? 'existing' : 'missing'}-wiki-link"
       tag(:a, desc, :href => PageNode.r(link), :class => style)
     end

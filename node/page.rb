@@ -8,7 +8,7 @@ class PageNode
   def index(*name)
     redirect r(:/, 'Home') if name.empty?
     @name = name.join('/')
-    @page = Page[@name]
+    @page = page_of(@name)
     @title = to_title(@name)
     @toc, @html = @page.to_toc, @page.to_html
   end
@@ -16,14 +16,14 @@ class PageNode
   def edit(*name)
     redirect_referrer if name.empty?
     @name = name.join('/')
-    @page = Page[@name]
+    @page = page_of(@name)
     @title = to_title(@name)
     @text = @page.content
   end
 
   def save
     name, text = request[:name, :text]
-    page = Page[name]
+    page = page_of(name)
 
     if text
       comment = page.exists? ? "Edit #{name}" : "Create #{name}"
@@ -37,7 +37,7 @@ class PageNode
     from, to = request[:from, :to]
 
     if from and to
-      Page[from].move(to)
+      page_of(name).move(to)
       redirect r(to)
     end
 
@@ -46,14 +46,14 @@ class PageNode
 
   def delete(name)
     raise "change"
-    Page[name].delete
+    page_of(name).delete
 
     redirect r(:/)
   end
 
   def history(*name)
     @name = name.join('/')
-    @page = Page[@name]
+    @page = page_of(name)
     @history = @page.history
   end
 
@@ -66,7 +66,7 @@ class PageNode
 
   def show(sha, *file)
     @sha, @name = sha, file.join('/')
-    @page = Page.new(@name, sha)
+    @page = Page.new(@name, locale, sha)
     @title = to_title(@name)
     @toc, @html = @page.to_toc, @page.to_html
   end
@@ -85,16 +85,21 @@ class PageNode
   end
 
   def locale
-    session[:language] || Options.for(:wiki).default_language
+    locale = session[:language] || Innate::Options.for(:wiki).default_language
+    p :locale => locale
+    response['Content-Language'] = locale
   end
 
   private
 
-  # make me public if you dare
-  def dot
-    dot_plot(Org::Token::LINKS)
-    Org::Token::LINKS.clear
-    "Plot finished"
+  def l(*strings)
+    strings.map{|s| "((#{s}))" }.join(' ')
+  end
+
+  def page_of(name)
+    page = Page[name]
+    page.language = locale
+    page
   end
 
   def to_title(string)
