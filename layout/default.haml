@@ -15,14 +15,14 @@
           %h1= l('Ramaze Wiki')
           %h2= l('A minimal git based wiki')
       .menu
+        .locale
+          %a{:href => r(:language, 'en')} English
+          %a{:href => r(:language, 'de')} Deutsch
+          %a{:href => r(:language, 'ja')} 日本語
         %a{:href => '/list'}= l('List Pages')
         %a{:href => r(:random)}= l('Random Page')
         - if logged_in?
           %a{:href => Auth.r(:logout)}= l('Log out')
         - else
           %a{:href => Auth.r(:login)}= l('Log in')
-        .locale
-          %a{:href => r(:language, 'en')} English
-          %a{:href => r(:language, 'de')} Deutsch
-          %a{:href => r(:language, 'ja')} 日本語
     .content= content
