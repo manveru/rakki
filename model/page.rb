@@ -59,7 +59,7 @@ class Page
   end
 
   def read(rev = @revision)
-#    return File.read(file)
+    # return File.read(file)
     return nil unless rev
     ref = "#{rev}:#{repo_file}"
     GBLOB_CACHE[ref] ||= G.gblob(ref).contents + "\n"
@@ -79,12 +79,12 @@ class Page
   end
 
   # TODO: make sure this is threadsafe
-  def save(content, comment = "Update #@name")
+  def save(content, author, comment = "Update #@name")
     FileUtils.mkdir_p(File.dirname(file))
     File.open(file, 'w+'){|i|
       i.puts content.gsub(/\r\n|\r/, "\n")
     }
-    message = G.commit(comment, :files => [repo_file])
+    message = G.better_commit(comment, :files => [repo_file], :author => author)
     @revision = message[/Created commit (\w+):/, 1]
   rescue Git::GitExecuteError => ex
     puts ex
@@ -99,13 +99,25 @@ class Page
     return unless exists?
     return if @name == to
     G.lib.mv(repo_file, repo_file(to))
-    message = G.commit(comment)
+    message = G.better_commit(comment)
     @revision = message[/Created commit (\w+):/, 1]
     @name = to
   rescue Git::GitExecuteError => ex
     puts "move(%p, %p)" % [to, comment]
     p :move => ex
     nil
+  end
+
+  def delete(author, comment = "Delete #@name")
+    return unless exists?
+    G.lib.remove(repo_file)
+    message = G.better_commit(comment, :author => author)
+  rescue Git::GitExecuteError => ex
+    puts ex
+    nil
+  ensure
+    GBLOB_CACHE.clear
+    LOG_CACHE.clear
   end
 
   def history

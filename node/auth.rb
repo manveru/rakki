@@ -3,15 +3,15 @@ require 'yaml/store'
 class User
   ACCOUNTS = YAML::Store.new('accounts.yaml')
 
-  def self.register(name, pass)
+  def self.register(name, pass, email)
     sync do |acc|
-      acc[name] = digestify(pass)
+      acc[name] = [digestify(pass), email]
     end
   end
 
   def self.check(name, pass)
     sync do |acc|
-      return acc[name] == digestify(pass)
+      acc[name].last if acc[name] == digestify(pass)
     end
   end
 
@@ -37,8 +37,8 @@ class Auth
 
     user, pass = request[:user, :pass]
 
-    if ::User.check(user.to_s.strip, pass.to_s.strip)
-      session[:user] = user
+    if email = ::User.check(user.to_s.strip, pass.to_s.strip)
+      session[:user] = [user, email]
       redirect_referrer
     end
   end

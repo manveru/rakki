@@ -17,12 +17,30 @@ module Git
       command_lines('log', arr, true).map { |l| l.split.first }
     end
 
-    def commit(message, opts = {})
+    def better_commit(message, opts = {})
       arr_opts = ["-m '#{message}'"]
-      arr_opts << '-a' if opts[:add_all]
-      arr_opts += (opts[:files] || opts[:files]).map{|f| f.to_s.dump }
+      add_all, files, author = opts.values_at(:add_all, :files, :author)
+
+      if add_all
+        arr_opts << '-a'
+      elsif files
+        arr_opts += files.map{|f| f.to_s.dump }
+      end
+
+      arr_opts << "--author=#{author.to_s.dump}" if author
+      p :arr_opts => arr_opts
       command('commit', arr_opts)
     end
+  end
+
+  module BaseExtensions
+    def better_commit(message, opts = {})
+      lib.better_commit(message, opts)
+    end
+  end
+
+  class Base
+    include BaseExtensions
   end
 
   class Lib

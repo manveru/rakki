@@ -29,7 +29,7 @@ class PageNode
 
     if text
       comment = page.exists? ? "Edit #{name}" : "Create #{name}"
-      page.save(text, comment)
+      page.save(text, commit_author, comment)
     end
 
     redirect r(:/, name)
@@ -49,8 +49,8 @@ class PageNode
 
   def delete(name)
     redirect_referrer unless logged_in?
-    raise "change"
-    page_of(name).delete
+
+    page_of(name).delete(commit_author)
 
     redirect r(:/)
   end
@@ -90,6 +90,11 @@ class PageNode
   end
 
   private
+
+  def commit_author
+    name, mail = session[:user]
+    "#{name} <#{mail}>"
+  end
 
   def page_of(name)
     page = Page[name]
