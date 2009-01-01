@@ -127,44 +127,13 @@ class PageNode
     list.map do |node, value|
       name = File.join(*[head, node].compact)
       if value.empty?
-        "<li>#{list_link(name)}</li>"
+        "<li>#{a(name, name)}</li>"
       else
-        ["<li>#{list_link(name)}</li>",
+        ["<li>#{a(name, name)}</li>",
          "<ul>",
          final_nested_list(value, name),
          "</ul>"]
       end
     end
-  end
-
-  def list_link(name)
-    a(name, name)
-  end
-
-  # Generate a pretty graph from the structure of the wiki and show
-  # it, beware of this, as it stops the server until feh returns,
-  # useful for development only.
-  def dot_plot(links)
-    require 'tempfile'
-
-    Tempfile.open('graph.dot') do |dot|
-      dot.puts 'Digraph Wiki {'
-
-      links.each do |page, links|
-        links.each do |link|
-          exists = Page[link.split('#').first].exists?
-          color = exists ? '#0000ff' : '#ff0000'
-          dot.puts %(  "#{page}" -> "#{link}" [color="#{color}"];)
-        end
-      end
-
-      dot.puts '}'
-      dot.close
-
-      system('dot', '-Tpng', '-O', dot.path)
-      system('feh', "#{dot.path}.png")
-    end
-
-    Innate::Log.info "Plot finished"
   end
 end
