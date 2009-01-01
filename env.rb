@@ -50,7 +50,7 @@ module Org
     end
 
     def link_irc(link, desc)
-      tag(:a, desc, :href => "irc://#{link}", :class => 'wiki-link-external')
+      tag(:a, desc, :href => "#{link}", :class => 'wiki-link-external')
     end
 
     def link_feed(link, desc)
