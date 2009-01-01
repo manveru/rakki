@@ -19,6 +19,7 @@
           %a{:href => r(:language, 'en')} English
           %a{:href => r(:language, 'de')} Deutsch
           %a{:href => r(:language, 'ja')} 日本語
+        %a{:href => 'http://ramaze.net'}= l('Ramaze')
         %a{:href => '/list'}= l('List Pages')
         %a{:href => r(:random)}= l('Random Page')
         - if logged_in?
@@ -26,3 +27,17 @@
         - else
           %a{:href => Auth.r(:login)}= l('Log in')
     .content= content
+    .footer
+      .copy
+        %a{:rel => :license, :href => 'http://creativecommons.org/licenses/by-sa/2.1/jp/'}
+          %img{:alt => 'Creative Commons License', :style => 'border-width: 0', :src => 'http://i.creativecommons.org/l/by-sa/2.1/jp/88x31.png'}
+        %br/
+        %span{'xmlns:dc' => 'http://purl.org/dc/elements/1.1', :href => 'http://purl.org/dc/dcmitype/Text', :property => 'dc:title', :rel => 'dc:type'}
+          Ramaze Wiki
+        by
+        %a{'xmlns:cc' => 'http://creativecommons.org/ns#', :href => 'http://wiki.ramaze.net', :property => 'cc:attributionName', :rel => 'cc:attributionURL'}
+          Michael Fellinger
+        is licensed under a
+        %a{:rel => :license, :href => 'http://creativecommons.org/licenses/by-sa/2.1/jp/'}
+          Creative Commons Attributions-Share Alike 2.1 Japan License
+        \.
