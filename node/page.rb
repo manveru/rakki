@@ -2,6 +2,7 @@ class PageNode
   include Innate::Node
   map '/'
   layout 'default'
+  helper :user, :localize
 
   provide :html => :haml
 
@@ -14,7 +15,7 @@ class PageNode
   end
 
   def edit(*name)
-    redirect_referrer if name.empty?
+    redirect_referrer if name.empty? || !logged_in?
     @name = name.join('/')
     @page = page_of(@name)
     @title = to_title(@name)
@@ -22,6 +23,7 @@ class PageNode
   end
 
   def save
+    redirect_referrer unless logged_in?
     name, text = request[:name, :text]
     page = page_of(name)
 
@@ -34,6 +36,7 @@ class PageNode
   end
 
   def move
+    redirect_referrer unless logged_in?
     from, to = request[:from, :to]
 
     if from and to
@@ -45,6 +48,7 @@ class PageNode
   end
 
   def delete(name)
+    redirect_referrer unless logged_in?
     raise "change"
     page_of(name).delete
 
@@ -85,17 +89,7 @@ class PageNode
     redirect_referrer
   end
 
-  def locale
-    locale = session[:language] || Innate::Options.for(:wiki).default_language
-    p :locale => locale
-    response['Content-Language'] = locale
-  end
-
   private
-
-  def l(*strings)
-    strings.map{|s| "((#{s}))" }.join(' ')
-  end
 
   def page_of(name)
     page = Page[name]

@@ -3,7 +3,7 @@
 
 %html
   %head
-    %title Ramaze Wiki
+    %title= l('Ramaze Wiki')
     %link{:rel => 'stylesheet', :href => '/css/screen.css', :type => 'text/css'}
     %link{:rel => 'stylesheet', :href => '/css/coderay.css', :type => 'text/css'}
     - if uv_style = session[:uv_style]
@@ -12,12 +12,17 @@
     .head
       .title
         %a{:href => '/Home', :alt => 'Home'}
-          %h1 Ramaze Wiki
-          %h2 A minimal git based wiki
+          %h1= l('Ramaze Wiki')
+          %h2= l('A minimal git based wiki')
       .menu
-        %a{:href => '/list'} List Pages
-        %a{:href => r(:random)} Random Page
+        %a{:href => '/list'}= l('List Pages')
+        %a{:href => r(:random)}= l('Random Page')
+        - if logged_in?
+          %a{:href => Auth.r(:logout)}= l('Log out')
+        - else
+          %a{:href => Auth.r(:login)}= l('Log in')
         .locale
           %a{:href => r(:language, 'en')} English
+          %a{:href => r(:language, 'de')} Deutsch
           %a{:href => r(:language, 'ja')} 日本語
     .content= content

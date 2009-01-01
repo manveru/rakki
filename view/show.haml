@@ -1,11 +1,13 @@
 .mod
   %b= l('Control') + ':'
   - if @page and @page.exists?
-    %a{:href => r(:edit, @name)}= l('Edit')
-    %a{:href => r(:delete, @name)}= l('Delete')
     %a{:href => r(:history, @name)}= l('History')
+    - if logged_in?
+      %a{:href => r(:edit, @name)}= l('Edit')
+      %a{:href => r(:delete, @name)}= l('Delete')
   - elsif @name
-    %a{:href => r(:edit, @name)}= l('Create')
+    - if logged_in?
+      %a{:href => r(:edit, @name)}= l('Create')
 
 .toc
   %b= l('Table of Contents')
