@@ -11,7 +11,10 @@ class User
 
   def self.check(name, pass)
     sync do |acc|
-      acc[name].last if acc[name] == digestify(pass)
+      digest, email = acc[name]
+      if digest and email and digest == digestify(pass)
+        return name
+      end
     end
   end
 
