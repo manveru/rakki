@@ -31,7 +31,7 @@ module Org
           link_external(link, desc || link)
         end
       else
-        lang = Innate::Current::session[:language]
+        lang = Innate::Current::session[:language] ||= 'en'
         link_internal(link, lang, desc || link)
       end
     end
