@@ -17,7 +17,7 @@ Innate.middleware :innate do |m|
   m.use Rack::ShowExceptions # fast
   m.use Rack::ShowStatus     # fast
   m.use Rack::Reloader       # reasonably fast depending on settings
-  m.use Rack::Lint           # slow, use only while developing
+  # m.use Rack::Lint           # slow, use only while developing
   # m.use Rack::Profile      # slow, use only for debugging or tuning
   m.use Rack::Localize.new(:languages => %w[en de jp], :files => 'locale/*.yaml')
   m.use Innate::Current      # necessary
