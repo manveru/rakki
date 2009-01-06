@@ -4,7 +4,7 @@ class PageNode
   layout 'default'
   helper :user, :localize
 
-  provide :html => :haml
+  provide :html => :erb
 
   def index(*name)
     redirect r(:/, 'Home') if name.empty?

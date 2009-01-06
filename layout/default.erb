@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Ramaze Wiki</title>
+    <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/css/coderay.css" />
+    <% if uv_style = session[:uv_style] %>
+      <link rel="stylesheet" type="text/css" href="/css/<%= uv_style %>.css" />
+    <% end %>
+  </head>
+  <body>
+    <div class="head">
+      <div class="title">
+        <a href="/Home" alt="Home"><img src="/logo.png" alt="Ramaze Wiki" /></a>
+      </div>
+      <div class="menu">
+        <div class="locale">
+          <a href="<%= r(:language, 'en') %>">English</a>
+          <a href="<%= r(:language, 'de') %>">Deutsch</a>
+          <a href="<%= r(:language, 'ja') %>">日本語</a>
+        </div>
+        <a href="http://ramaze.net">Ramaze</a>
+        <a href="/list">List Pages</a>
+        <a href="<%= r(:random) %>">Random Page</a>
+        <% if logged_in? %>
+          <a href="<%= Auth.r(:logout) %>">Log out</a>
+        <% else %>
+          <a href="<%= Auth.r(:login) %>">Log in</a>
+        <% end %>
+      </div>
+    </div>
+    <div class="content">
+      <%= @content %>
+    </div>
+    <div class="footer">
+      <div class="copy">
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.1/jp/">
+          <img alt="Creative Commons License" src="http://i.creativecommons.org/l/by-sa/2.1/jp/88x31.png" />
+        </a>
+        <br />
+        <span href="http://purl.org/dc/dcmitype/Text" xmlns:dc="http://purl.org/dc/elements/1.1" property="dc:title" rel="dc:type">Ramaze Wiki</span>
+        by
+        <a href="http://wiki.ramaze.net" xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName" rel="cc:attributionURL">Michael Fellinger</a>
+        is licensed under a
+        <a href="http://creativecommons.org/licenses/by-sa/2.1/jp/" rel="license">Creative Commons Attributions-Share Alike 2.1 Japan License</a>
+        .
+      </div>
+    </div>
+  </body>
+</html>

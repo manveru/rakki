@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+textarea {
+  width: 95%;
+  height: 20em;
+  display: block;
+  padding: 1em;
+}
+input.submit {
+  width: 95%;
+}
+img {
+  border: 0;
+}
+.content {
+  clear: both;
+  padding: 1em;
+}
+.content table {
+  width: 70%;
+  margin: 2em;
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.content table tr td {
+  padding: 0.2em;
+  width: 25%;
+}
+.content .list {
+  margin-top: 0em;
+}
+.content .list ul {
+  margin-left: 1em;
+}
+.content .list ul li {
+  margin: 0.2em;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  margin-top: 1em;
+}
+.content .text a.missing-wiki-link, .content .list a.missing-wiki-link {
+  color: #f00;
+}
+.content .text a.existing-wiki-link, .content .list a.existing-wiki-link {
+  color: #00f;
+}
+.content .text p, .content .list p {
+  padding: 0.5em;
+}
+.content .text ul {
+  padding-left: 2em;
+  margin-top: 1em;
+}
+.content .text code, .content .list code {
+  background: #eee;
+}
+.content .text div.CodeRay, .content .list div.CodeRay {
+  margin: 0.5em;
+  padding: 0.5em;
+}
+.content .toc {
+  clear: right;
+  font-size: 0.8em;
+  float: right;
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  background: #eee;
+}
+.content .toc ol {
+  list-style-type: none;
+  margin-left: 0.5em;
+}
+.content .toc ol li {
+  list-style-type: none;
+  margin-left: 0.5em;
+}
+.mod, .uv_select {
+  margin: 0.5em;
+  font-size: 0.8em;
+  float: right;
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  background: #eee;
+}
+.history {
+  padding: 1em;
+}
+.history table {
+  border-collapse: collapse;
+}
+.history table tr.current {
+  background: #efe;
+}
+.history table tr.old {
+  background: #ddd;
+}
+.history table td {
+  border: 1px solid #ddd;
+  padding: 0.2em;
+}
+.diff {
+  margin-top: 1em;
+  overflow: auto;
+}
+.head {
+  background: #38f;
+  color: #fff;
+  height: 4em;
+}
+.head a {
+  color: #fff;
+}
+.head .title {
+  color: #fff;
+  padding: 0.5em;
+}
+.head .menu {
+  background: #38f;
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  line-height: 1.5em;
+  text-align: right;
+}
+.head .menu a {
+  color: #fff;
+  padding: 0.2em;
+  text-decoration: none;
+}
+.head .menu a:hover {
+  background: #669;
+}
+.footer {
+  clear: both;
+  padding-top: 3em;
+  text-align: center;
+  font-size: 0.8em;
+}

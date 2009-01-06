@@ -1,0 +1,12 @@
+<h1>Move <%= h(@title.dump) %></h1>
+
+<form action="<%= r(:move, @name) %>" method="post">
+  <fieldset>
+    <legend>Move</legend>
+
+    <label for="form_move">Move to different page:</label>
+    <input id="form_move" type="text" name="move" value="<%= h(@name) %>" />
+
+    <input type="submit" class="submit" value="Move" />
+  </fieldset>
+</form>

@@ -30,7 +30,7 @@ Innate.setup do
   # gem :uv
   # gem :git
 
-  require 'env', 'model/page', 'node/init'
+  require 'env', 'model/page', 'node/page', 'node/auth'
 
   start :adapter => :mongrel
 end

@@ -1,0 +1,16 @@
+<h1>Edit <%= h(@title.dump) %></h1>
+
+<form action="<%= r(:save) %>" method="post">
+  <input type="hidden" name="name" value="<%= h(@name) %>" />
+  <fieldset>
+    <legend>Edit</legend>
+
+    <label for="form_text"> Text:</label>
+    <textarea id="form_text" name="text"><%= @text %></textarea>
+
+    <label for="form_comment"> Text:</label>
+    <input id="form_comment" type="text" name="comment" value="Update <%= h(@name) %>" />
+
+    <input type="submit" class="submit" value="Save" />
+  </fieldset>
+</form>
