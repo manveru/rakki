@@ -10,6 +10,8 @@ RAKKI.dsl do
     :default_language, 'en'
 end
 
+Innate.options.cache.names = [:session, :feed]
+
 module Org
   class Token
     include ToHtml
@@ -59,6 +61,22 @@ module Org
     end
 
     def link_feed(link, desc)
+      cache = Innate::Cache.feed
+
+      if content = cache[link]
+        content
+      else
+        content = build_feed(link, desc)
+        cache.store(link, content, :ttl => 600)
+      end
+
+      return content
+    rescue SocketError # so i can work on it local
+      link = '/home/manveru/feeds/rss_v2_0_msgs.xml'
+      retry
+    end
+
+    def build_feed(link, desc)
       feed = FeedConvert.parse(open(link))
 
       b = Builder::XmlMarkup.new
@@ -76,9 +94,6 @@ module Org
       end
 
       b.target!
-    rescue SocketError # so i can work on it local
-      link = '/home/manveru/feeds/rss_v2_0_msgs.xml'
-      retry
     end
 
     # TODO: format for search or name of article.
