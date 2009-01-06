@@ -1,9 +1,14 @@
-Innate::Options.for(:wiki){|wiki|
-  wiki.title = 'Ramaze Wiki'
-  wiki.root = File.dirname(__FILE__)
-  wiki.repo = File.expand_path(ENV['WIKI_HOME'] || File.join(wiki.root, 'pages'))
-  wiki.default_language = 'en'
-}
+RAKKI = Innate::Options.new(:rakki)
+RAKKI.dsl do
+  o "Title of site",
+    :title, "Ramaze Wiki"
+  o "Root directory",
+    :root, File.dirname(__FILE__)
+  o "Git repository location",
+    :repo, File.expand_path(ENV['WIKI_HOME'] || File.join(self[:root], 'pages'))
+  o "Default language",
+    :default_language, 'en'
+end
 
 module Org
   class Token

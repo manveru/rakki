@@ -2,7 +2,6 @@ require 'logger'
 require 'vendor/git_extension'
 
 class Page
-  C = Innate::Options.for(:wiki)
   GBLOB_CACHE = {}
   LOG_CACHE = {}
   EXT = '.org'
@@ -10,10 +9,10 @@ class Page
   attr_accessor :language
 
   begin
-    G = Git.open(C.repo) #, :log => Innate::Log)
+    G = Git.open(RAKKI.repo) #, :log => Innate::Log)
   rescue ArgumentError
-    FileUtils.mkdir_p(C.repo)
-    Dir.chdir(C.repo){ Git.init('.') }
+    FileUtils.mkdir_p(RAKKI.repo)
+    Dir.chdir(RAKKI.repo){ Git.init('.') }
     retry
   end
 
@@ -22,12 +21,12 @@ class Page
   end
 
   def self.language
-    Innate::Current.session[:language] || C.default_language
+    Innate::Current.session[:language] || RAKKI.default_language
   end
 
   def self.list(language)
-    Dir["#{C.repo}/#{language}/**/*#{EXT}"].map{|path|
-      path.gsub(C.repo, '').gsub(/#{language}\//, '').gsub(/#{EXT}$/, '')[1..-1]
+    Dir["#{RAKKI.repo}/#{language}/**/*#{EXT}"].map{|path|
+      path.gsub(RAKKI.repo, '').gsub(/#{language}\//, '').gsub(/#{EXT}$/, '')[1..-1]
     }
   end
 
@@ -143,7 +142,7 @@ class Page
   end
 
   def file
-    File.join(C.repo, repo_file)
+    File.join(RAKKI.repo, repo_file)
   end
 
   def repo_file(name = @name)

@@ -2,7 +2,8 @@ module Innate
   module Helper
     module Localize
       def locale
-        locale = session[:language] || Innate::Options.for(:wiki).default_language
+        locale = session[:language] || RAKKI.default_language
+        p :locale => locale
         response['Content-Language'] = locale
       end
 
