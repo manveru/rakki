@@ -8,22 +8,22 @@ class PageNode
 
   def index(*name)
     redirect r(:/, 'Home') if name.empty?
-    @name = name.join('/')
-    @page = page_of(@name)
-    @title = to_title(@name)
+
+    setup_page(*name)
+
     @toc, @html = @page.to_toc, @page.to_html
   end
 
   def edit(*name)
     redirect_referrer if name.empty? || !logged_in?
-    @name = name.join('/')
-    @page = page_of(@name)
-    @title = to_title(@name)
+
+    setup_page(*name)
+
     @text = @page.content
   end
 
   def save
-    redirect_referrer unless logged_in?
+    redirect_referrer unless request.post? && logged_in?
     name, text = request[:name, :text]
     page = page_of(name)
 
@@ -35,8 +35,13 @@ class PageNode
     redirect r(:/, name)
   end
 
-  def move
-    redirect_referrer unless logged_in?
+  def move(*name)
+    redirect_referrer if name.empty? || !logged_in?
+
+    setup_page(*name)
+
+    return unless request.post?
+
     from, to = request[:from, :to]
 
     if from and to
@@ -94,6 +99,12 @@ class PageNode
   def commit_author
     name, mail = session[:user]
     "#{name} <#{mail}>"
+  end
+
+  def setup_page(*name)
+    @name = name.join('/')
+    @page = page_of(@name)
+    @title = to_title(@name)
   end
 
   def page_of(name)
