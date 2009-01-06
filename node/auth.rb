@@ -31,7 +31,7 @@ class Auth
   include Innate::Node
   map '/auth'
   layout :default
-  provide :html => :haml
+  provide :html => :erb
   helper :user, :localize
 
   def login
