@@ -11,6 +11,8 @@ RAKKI.dsl do
 end
 
 Innate.options.cache.names = [:session, :feed]
+Innate.options.header['Accept-Charset'] = 'utf-8'
+Innate.options.header['Content-Type'] = 'text/html; charset=utf-8'
 
 module Org
   class Token
