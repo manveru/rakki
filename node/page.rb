@@ -1,4 +1,4 @@
-class PageNode
+class Pages
   include Innate::Node
   map '/'
   layout 'default'

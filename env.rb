@@ -51,7 +51,7 @@ module Org
       this = Innate::Current::action.params.join('/')
       exists = Page.new(link.split('#').first, lang, :speedup).exists?
       style = "#{exists ? 'existing' : 'missing'}-wiki-link"
-      tag(:a, desc, :href => PageNode.r(link), :class => style)
+      tag(:a, desc, :href => Pages.r(link), :class => style)
     end
 
     def link_external(link, desc)

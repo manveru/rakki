@@ -17,17 +17,17 @@
       </div>
       <div class="menu">
         <div class="locale">
-          <a href="<%= r(:language, 'en') %>">English</a>
-          <a href="<%= r(:language, 'de') %>">Deutsch</a>
-          <a href="<%= r(:language, 'ja') %>">日本語</a>
+          <%= Pages.a('English', 'language/en') %>
+          <%= Pages.a('Deutsch', 'language/de') %>
+          <%= Pages.a('日本語', 'language/ja') %>
         </div>
         <a href="http://ramaze.net">Ramaze</a>
-        <a href="/list">List Pages</a>
-        <a href="<%= r(:random) %>">Random Page</a>
+        <%= Pages.a('List pages', :list) %>
+        <%= Pages.a('Random page', :random) %>
         <% if logged_in? %>
-          <a href="<%= Auth.r(:logout) %>">Log out</a>
+          <%= Auth.a('Log out', :logout) %>
         <% else %>
-          <a href="<%= Auth.r(:login) %>">Log in</a>
+          <%= Auth.a('Log in', :login) %>
         <% end %>
       </div>
     </div>

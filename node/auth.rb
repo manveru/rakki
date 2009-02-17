@@ -35,7 +35,7 @@ class Auth
   helper :user, :localize
 
   def login
-    redirect PageNode.r('/') if logged_in?
+    redirect Pages.r('/') if logged_in?
     return unless request.post?
 
     user, pass = request[:user, :pass]
