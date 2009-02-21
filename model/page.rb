@@ -10,21 +10,19 @@ class Page
 
   begin
     G = Git.open(RAKKI.repo) #, :log => Innate::Log)
-  rescue ArgumentError
-    seed_file = File.join(RAKKI.repo, 'en/Home.org')
-    seed_dir = File.dirname(seed_file)
+  rescue ArgumentError => ex
+    FileUtils.mkdir_p(File.join(RAKKI.repo, 'en'))
 
-    FileUtils.mkdir_p(seed_dir)
-    FileUtils.touch(seed_file)
-
-    Dir.chdir(seed_dir){
+    Dir.chdir(RAKKI.repo){
+      FileUtils.touch('en/Home.org')
       Git.init('.')
     }
 
     g = Git.open(RAKKI.repo)
+    g.add('en/Home.org')
     g.better_commit(
       'Inaugural commit',
-      :files => [seed_file],
+      :files => ['en/Home.org'],
       :author => 'Rakki Wiki <rakki@localhost>')
     retry
   end
