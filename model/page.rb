@@ -94,6 +94,7 @@ class Page
     File.open(file, 'w+'){|i|
       i.puts content.gsub(/\r\n|\r/, "\n")
     }
+    G.add(File.join(language, "#{@name}#{EXT}")) unless @revision
     message = G.better_commit(comment, :files => [repo_file], :author => author)
     @revision = message[/Created commit (\w+):/, 1]
   rescue Git::GitExecuteError => ex
