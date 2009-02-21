@@ -3,7 +3,6 @@ module Innate
     module Localize
       def locale
         locale = session[:language] || RAKKI.default_language
-        p :locale => locale
         response['Content-Language'] = locale
       end
 
