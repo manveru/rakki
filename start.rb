@@ -12,25 +12,18 @@ require 'vendor/feed_convert'
 
 Uv.copy_files('xhtml', File.join(File.dirname(__FILE__), 'public'))
 
-Innate.middleware :innate do |m|
-  m.use Rack::CommonLogger   # usually fast, depending on the output
-  m.use Rack::ShowExceptions # fast
-  m.use Rack::ShowStatus     # fast
-  m.use Rack::Reloader       # reasonably fast depending on settings
-  # m.use Rack::Lint           # slow, use only while developing
-  # m.use Rack::Profile      # slow, use only for debugging or tuning
-  m.use Rack::Localize.new(:languages => %w[en de jp], :files => 'locale/*.yaml')
-  m.use Innate::Current      # necessary
+require 'env'
+require 'model/page'
+require 'node/page'
+require 'node/auth'
 
-  m.cascade Rack::File.new('public'), Innate::DynaMap
-end
-
-Innate.setup do
-  # gem :owlscribble
-  # gem :uv
-  # gem :git
-
-  require 'env', 'model/page', 'node/page', 'node/auth'
-
-  start :adapter => :mongrel
+Innate.start :adapter => :mongrel do |m|
+  m.use(Rack::CommonLogger,
+        Rack::ShowExceptions,
+        Rack::ShowStatus,
+        Rack::ConditionalGet,
+        Rack::Head,
+        Rack::Reloader,
+        Rack::Localize.new(:languages => %w[en de jp], :files => 'locale/*.yaml'))
+  m.innate
 end
