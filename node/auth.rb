@@ -13,7 +13,7 @@ class User
     sync do |acc|
       digest, email = acc[name]
       if digest and email and digest == digestify(pass)
-        return name
+        return email
       end
     end
   end
