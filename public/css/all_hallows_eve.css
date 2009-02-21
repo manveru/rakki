@@ -1,108 +1,72 @@
-pre.active4d
-  :background-color #FFFFFF
-  :color #000000
-
-  .DiffHeader
-    :background-color #656565
-    :color #FFFFFF
-
-  .Operator, .InheritedClass
-  .TypeName
-    :color #21439C
-
-  .Number
-    :color #A8017E
-
-  .EmbeddedSource
-    :background-color #ECF1FF
-
-  .DiffInsertedLine
-    :background-color #98FF9A
-    :color #000000
-
-  .LibraryVariable
-    :color #A535AE
-
-  .Storage
-    :color #FF5600
-
-  .InterpolatedEntity
-    :font-weight bold
-    :color #66CCFF
-
-  .line-numbers
-    :background-color #BAD6FD
-    :color #000000
-
-  .LocalVariable
-    :font-weight bold
-    :color #6392FF
-
-  .DiffLineRange
-    :background-color #1B63FF
-    :color #FFFFFF
-
-  .BlockComment
-    :color #D33435
-
-  .TagName
-    :color #016CFF
-
-  .FunctionArgument
-  .BuiltInConstant
-    :color #A535AE
-
-  .LineComment
-    :color #D33535
-
-  .DiffDeletedLine
-    :background-color #FF7880
-    :color #000000
-
-  .NamedConstant
-    :color #B7734C
-
-  .CommandMethod
-    :font-weight bold
-    :color #45AE34
-
-  .TableField
-    :color #0BB600
-
-  .PlainXmlText
-    :color #000000
-
-  .Invalid
-    :background-color #990000
-    :color #FFFFFF
-
-  .LibraryClassType
-    :color #A535AE
-
-  .TagAttribute
-    :color #963DFF
-
-  .Keyword
-    :font-weight bold
-    :color #006699
-
-  .UserDefinedConstant
-  .String
-    :color #666666
-
-  .DiffUnchangedLine
-    :color #5E5E5E
-
-  .TagContainer
-    :color #7A7A7A
-
-  .FunctionName
-    :color #21439C
-
-  .Variable
-    :font-weight bold
-    :color #0053FF
-
-  .DateTimeLiteral
-    :font-weight bold
-    :color #66CCFF
+pre.all_hallows_eve .ClassInheritance {
+   font-style: italic;
+}
+pre.all_hallows_eve .Constant {
+   color: #3387CC;
+}
+pre.all_hallows_eve .TypeName {
+   text-decoration: underline;
+}
+pre.all_hallows_eve .TextBase {
+   background-color: #434242;
+   color: #FFFFFF;
+}
+pre.all_hallows_eve {
+   background-color: #000000;
+   color: #FFFFFF;
+}
+pre.all_hallows_eve .StringEscapesExecuted {
+   color: #555555;
+}
+pre.all_hallows_eve .line-numbers {
+   background-color: #73597E;
+   color: #FFFFFF;
+}
+pre.all_hallows_eve .StringExecuted {
+   background-color: #CCCC33;
+   color: #000000;
+}
+pre.all_hallows_eve .BlockComment {
+   background-color: #9B9B9B;
+   color: #FFFFFF;
+}
+pre.all_hallows_eve .TagName {
+   text-decoration: underline;
+}
+pre.all_hallows_eve .PreProcessorLine {
+   color: #D0D0FF;
+}
+pre.all_hallows_eve .SupportFunction {
+   color: #C83730;
+}
+pre.all_hallows_eve .FunctionArgument {
+   font-style: italic;
+}
+pre.all_hallows_eve .PreProcessorDirective {
+}
+pre.all_hallows_eve .StringEscapes {
+   color: #AAAAAA;
+}
+pre.all_hallows_eve .SourceBase {
+   background-color: #000000;
+   color: #FFFFFF;
+}
+pre.all_hallows_eve .TagAttribute {
+}
+pre.all_hallows_eve .StringLiteral {
+   color: #CCCC33;
+}
+pre.all_hallows_eve .String {
+   color: #66CC33;
+}
+pre.all_hallows_eve .Keyword {
+   color: #CC7833;
+}
+pre.all_hallows_eve .RegularExpression {
+   color: #CCCC33;
+}
+pre.all_hallows_eve .FunctionName {
+}
+pre.all_hallows_eve .Comment {
+   color: #9933CC;
+}
