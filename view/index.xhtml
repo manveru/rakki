@@ -1,0 +1,22 @@
+<?r if @page and @page.exists? ?>
+  <div class="mod">
+    <a href="#{ r(:history, @name) }">History</a>
+    <?r if logged_in? ?>
+      <a href="#{ r(:edit, @name) }">Edit</a>
+      <a href="#{ r(:move, @name) }">Move</a>
+      <a href="#{ r(:delete, @name) }">Delete</a>
+    <?r end ?>
+  </div>
+<?r elsif @name and logged_in? ?>
+  <div class="mod">
+    <a href="#{ r(:edit, @name) }">Create</a>
+  </div>
+<?r end ?>
+
+<div class="toc">
+  <b>Table of Contents</b>
+  #{ @toc }
+</div>
+<div class="text">
+  #{ @html }
+</div>

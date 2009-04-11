@@ -1,29 +1,26 @@
-require 'innate'
-require 'innate/setup'
-require 'uv'
-require 'git'
-require 'builder'
+dir = File.expand_path(File.dirname(__FILE__))
 
-$LOAD_PATH.unshift File.dirname(__FILE__)
+$LOAD_PATH.unshift(dir)
+Dir["#{dir}/vendor/*/lib"].each{|lib| $LOAD_PATH.unshift(lib) }
 
-require 'org'
-require 'vendor/rack/localize'
+require 'ramaze'
 require 'vendor/feed_convert'
+
+Ramaze.setup do
+  gem 'git_store'
+  gem 'org'
+  gem 'ultraviolet', :lib => 'uv'
+  gem 'builder'
+end
 
 Uv.copy_files('xhtml', File.join(File.dirname(__FILE__), 'public'))
 
-require 'env'
-require 'model/page'
-require 'node/page'
-require 'node/auth'
+require 'yaml/store'
+require 'ramaze/helper/localize'
+require 'ramaze/helper/user'
 
-Innate.start :adapter => :mongrel do |m|
-  m.use(Rack::CommonLogger,
-        Rack::ShowExceptions,
-        Rack::ShowStatus,
-        Rack::ConditionalGet,
-        Rack::Head,
-        Rack::Reloader,
-        Rack::Localize.new(:languages => %w[en de jp], :files => 'locale/*.yaml'))
-  m.innate
-end
+require 'env'
+require 'model/init'
+require 'controller/init'
+
+Ramaze.start :adapter => :mongrel, :mode => :live

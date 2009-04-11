@@ -1,9 +1,9 @@
 <p>Yes, i know this page sucks, but until we can afford an undo function please
 bear with it as a way to prevent unsuspecting clients from wildly clicking all
 GET links.<br />
-Are you sure you want to delete <%= h(@name) %>?
+Are you sure you want to delete #{ h(@name) }?
 
-  <form method="post" action="<%= @action %>">
+  <form method="post" action="#{ @action }">
     <input type="submit" class="submit" value="Yes" />
   </form>
 </p>

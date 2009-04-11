@@ -1,0 +1,18 @@
+<h1>Diff #{a @sha, r(:show, @sha, @name)} to #{a @name, r(@name)}</h1>
+
+<div class="uv_select">
+  <b>Style select</b>
+  <?r current = session[:uv_style]
+    @styles.each do |style| ?>
+    <br />
+    <?r if current == style ?>
+      #{ h(style) }
+    <?r else ?>
+      <a href="?uv_style=#{ h(style) }">#{ h(style) }</a>
+    <?r end ?>
+  <?r end ?>
+</div>
+
+<div class="diff">
+  #{ @text }
+</div>

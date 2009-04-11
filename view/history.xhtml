@@ -1,0 +1,23 @@
+<h1>History of #{a @name, r(@name)}</h1>
+
+<div class="history">
+  <table>
+    <tr>
+      <td>Message</td><td>Author</td><td>Date</td><td>Action</td>
+    </tr>
+    <?r @history.each_with_index do |log, idx|
+      current = idx == 0 ?>
+      <tr class="#{ current ? 'current' : 'old' }">
+        <td>#{ h(log.message) }</td>
+        <td>#{ h(log.author.name) }</td>
+        <td>#{ h(log.date) }</td>
+        <td>
+          <?r unless current ?>
+            <a href="#{ r(:diff, log.objectish, @name) }">Diff</a>
+          <?r end ?>
+          <a href="#{ r(:show, log.objectish, @name) }">Show</a>
+        </td>
+      </tr>
+    <?r end ?>
+  </table>
+</div>

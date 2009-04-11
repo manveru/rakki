@@ -1,18 +1,46 @@
-RAKKI = Innate::Options.new(:rakki)
-RAKKI.dsl do
-  o "Title of site",
-    :title, "Ramaze Wiki"
-  o "Root directory",
-    :root, File.dirname(__FILE__)
-  o "Git repository location",
-    :repo, File.expand_path(ENV['WIKI_HOME'] || File.join(self[:root], 'pages'))
-  o "Default language",
-    :default_language, 'en'
+module Rakki
+  include Ramaze::Optioned
+
+  options.dsl do
+    o "Title of site", :title,
+      "Ramaze Wiki"
+
+    o "Root directory", :root,
+      File.dirname(__FILE__)
+
+    o "Git repository location", :repo,
+      File.expand_path(ENV['WIKI_HOME'] || File.join(self[:root], 'pages'))
+
+    o "Default language", :default_language,
+      'en'
+
+    o "languages", :languages, [
+      ['en', 'English'],
+      ['de', 'Deutsch'],
+      ['ja', '日本語' ] ]
+      %w[en de ja]
+  end
 end
 
-Innate.options.cache.names = [:session, :feed]
-Innate.options.header['Accept-Charset'] = 'utf-8'
-Innate.options.header['Content-Type'] = 'text/html; charset=utf-8'
+Ramaze.options.merge!(
+  'cache.names' => [:session, :feed, :git_blob, :git_log],
+  'response.headers' => {
+    'Accept-Charset' => 'utf-8',
+    'Content-Type' => 'text/html; charset=utf-' })
+
+
+DICTIONARY = Ramaze::Helper::Localize::Dictionary.new
+
+Rakki.options.languages.each do |id, name|
+  file = __DIR__("locale/locale_#{id}.yaml")
+
+  begin
+    DICTIONARY.load(id, :yaml => file)
+  rescue Errno::ENOENT
+    FileUtils.touch(file)
+    retry
+  end
+end
 
 module Org
   class Token
@@ -45,13 +73,11 @@ module Org
       end
     end
 
-    LINKS = {} unless defined?(LINKS)
-
     def link_internal(link, lang, desc)
       this = Innate::Current::action.params.join('/')
-      exists = Page.new(link.split('#').first, lang, :speedup).exists?
+      exists = Rakki::Page[link.split('#').first, lang]
       style = "#{exists ? 'existing' : 'missing'}-wiki-link"
-      tag(:a, desc, :href => Pages.r(link), :class => style)
+      tag(:a, desc, :href => Rakki::Pages.r(link), :class => style)
     end
 
     def link_external(link, desc)

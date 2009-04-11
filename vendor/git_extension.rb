@@ -28,14 +28,39 @@ module Git
       end
 
       arr_opts << "--author=#{author.to_s.dump}" if author
-      p :arr_opts => arr_opts
       command('commit', arr_opts)
+    end
+
+    # git ls-files [-z] [-t] [-v]
+    #   (--[cached|deleted|others|ignored|stage|unmerged|killed|modified])*
+    #   (-[c|d|o|i|s|u|k|m])*
+    #   [-x <pattern>|--exclude=<pattern>]
+    #   [-X <file>|--exclude-from=<file>]
+    #   [--exclude-per-directory=<file>]
+    #   [--exclude-standard]
+    #   [--error-unmatch] [--with-tree=<tree-ish>]
+    #   [--full-name] [--abbrev] [--] [<file>]*
+    def ls_files_in(file, &block)
+      command_lines('ls-files', file).each(&block)
+    end
+
+    def object_exists?(sha)
+      command_lines('cat-file', ['-e', sha])
     end
   end
 
+  # should use Forwardable?
   module BaseExtensions
     def better_commit(message, opts = {})
       lib.better_commit(message, opts)
+    end
+
+    def ls_files_in(file, &block)
+      lib.ls_files_in(file, &block)
+    end
+
+    def object_exists?(sha)
+      lib.object_exists?(sha)
     end
   end
 

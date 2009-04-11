@@ -16,14 +16,10 @@ module Rack
     # +:mapping+
     # +:persist+
 
-    def initialize(options = {})
+    def initialize(app, options = {})
       @options = OPTIONS.merge(options)
-    end
-
-    def new(app)
       @app = app
       load_dictionaries
-      return self
     end
 
     # Make sure to set the Content-Language header in your application
@@ -145,7 +141,7 @@ module Rack
     # Common algorithm to determine the left offset until strings become uncommon
     def uncommon_substring_core(needle, max)
       (0..max).find do |n|
-        reg = /^#{'.' * n}(.*)/
+        reg = /^.{#{n}}(.*)/
           needle.map{|s| s[reg, 1][0,1] }.uniq.size > 1
       end
     end
@@ -164,4 +160,4 @@ app = lambda{|env|
 }
 
 require 'rack'
-Rack::Handler::Mongrel.run(Rack::Localize.new.new(app), :Port => 7000)
+Rack::Handler::Mongrel.run(Rack::Localize.new(app), :Port => 7000)

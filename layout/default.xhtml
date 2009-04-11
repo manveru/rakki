@@ -6,9 +6,9 @@
 
     <link rel="stylesheet" type="text/css" href="/css/screen.css" />
     <link rel="stylesheet" type="text/css" href="/css/coderay.css" />
-    <% if uv_style = session[:uv_style] %>
-      <link rel="stylesheet" type="text/css" href="/css/<%= uv_style %>.css" />
-    <% end %>
+    <?r if uv_style = session[:uv_style] ?>
+      <link rel="stylesheet" type="text/css" href="/css/#{ uv_style }.css" />
+    <?r end ?>
   </head>
   <body>
     <div class="head">
@@ -17,22 +17,23 @@
       </div>
       <div class="menu">
         <div class="locale">
-          <%= Pages.a('English', 'language/en') %>
-          <%= Pages.a('Deutsch', 'language/de') %>
-          <%= Pages.a('日本語', 'language/ja') %>
+          <?r Rakki.options.languages.each do |id, name| ?>
+            #{ Rakki::Pages.a(name, "language/#{id}") }
+          <?r end ?>
         </div>
         <a href="http://ramaze.net">Ramaze</a>
-        <%= Pages.a('List pages', :list) %>
-        <%= Pages.a('Random page', :random) %>
-        <% if logged_in? %>
-          <%= Auth.a('Log out', :logout) %>
-        <% else %>
-          <%= Auth.a('Log in', :login) %>
-        <% end %>
+        #{ Rakki::Pages.a(l('List pages'), :list) }
+        #{ Rakki::Pages.a(l('Random page'), :random) }
+        <?r if logged_in? ?>
+          #{ Rakki::Auth.a(l('Log out'), :logout) }
+        <?r else ?>
+          #{ Rakki::Auth.a(l('Log in'), :login) }
+        <?r end ?>
       </div>
     </div>
+    #{flashbox}
     <div class="content">
-      <%= @content %>
+      #{ @content }
     </div>
     <div class="footer">
       <div class="copy">
