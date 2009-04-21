@@ -7,7 +7,6 @@ require 'ramaze'
 require 'vendor/feed_convert'
 
 Ramaze.setup do
-  gem 'git_store'
   gem 'org'
   gem 'ultraviolet', :lib => 'uv'
   gem 'builder'
