@@ -179,6 +179,9 @@ module Rakki
 
     def exists?(rev = self.revision)
       G.object_exists?("#{rev}:#{path}")
+    rescue Git::GitExecuteError => ex
+      Ramaze::Log.error(ex.message)
+      false
     end
   end
 end
