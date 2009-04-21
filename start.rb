@@ -22,4 +22,4 @@ require 'env'
 require 'model/init'
 require 'controller/init'
 
-Ramaze.start :adapter => :mongrel, :mode => :live
+Ramaze.start(:adapter => :mongrel, :mode => :live) if __FILE__ == $0
