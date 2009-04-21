@@ -7,7 +7,7 @@ require 'ramaze'
 require 'vendor/feed_convert'
 
 Ramaze.setup do
-  gem 'org'
+  gem 'manveru-org', :lib => 'org', :source => github
   gem 'ultraviolet', :lib => 'uv'
   gem 'builder'
 end
