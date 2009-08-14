@@ -15,10 +15,11 @@ module Rakki
       'en'
 
     o "languages", :languages, [
-      ['en', 'English'],
       ['de', 'Deutsch'],
-      ['ja', '日本語' ] ]
-      %w[en de ja]
+      ['en', 'English'],
+      ['fr', 'Français'],
+      ['ja', '日本語' ]
+    ]
   end
 end
 
